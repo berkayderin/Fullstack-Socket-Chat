@@ -6,7 +6,7 @@ const Chat = ({ username, room, socket }) => {
 
 	useEffect(() => {
 		socket.on('messageReturn', (data) => {
-			setMessageList([...messageList, data])
+			setMessageList((prevMessageList) => [...prevMessageList, data])
 		})
 	}, [socket])
 
@@ -19,7 +19,7 @@ const Chat = ({ username, room, socket }) => {
 		}
 
 		await socket.emit('message', messageContent)
-		setMessageList([...messageList, messageContent])
+		setMessageList((prevMessageList) => [...prevMessageList, messageContent])
 		setMessage('')
 	}
 
@@ -27,7 +27,11 @@ const Chat = ({ username, room, socket }) => {
 		<div className="flex items-center justify-center h-full">
 			<div className="w-1/3 h-[500px] bg-white relative">
 				<div className="w-full h-17 bg-gray-700 flex items-center p-2">
-					<div className="w-12 h-12 bg-white rounded-full "></div>
+					<div className="w-12 h-12 bg-white rounded-full"></div>
+					<div className="ml-2">
+						<p className="text-white font-bold">{username}</p>
+						<p className="text-white text-xs">Oda {room}</p>
+					</div>
 				</div>
 				<div className="w-full h-[400px] overflow-y-auto p-3">
 					{messageList.map((val, key) => {
