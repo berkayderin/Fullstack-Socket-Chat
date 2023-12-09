@@ -29,39 +29,39 @@ const Chat = ({ username, room, socket }) => {
 				<div className="w-full h-17 bg-gray-700 flex items-center p-2">
 					<div className="w-12 h-12 bg-white rounded-full "></div>
 				</div>
-
 				<div className="w-full h-[400px] overflow-y-auto p-3">
 					{messageList.map((val, key) => {
 						return (
 							<div
 								key={key}
-								className={`w-full flex flex-col ${username === val.username ? 'items-end' : 'items-start'}`}
+								className={`w-full flex break-all flex-col mb-3 ${
+									username === val.username ? 'items-end' : 'items-start'
+								}`}
 							>
 								<div
 									className={`w-2/3 p-2 rounded-lg ${
-										username === val.username ? 'bg-indigo-500 text-white' : 'bg-gray-300 text-black'
+										username === val.username ? 'bg-indigo-600 text-white' : 'bg-gray-300 text-black'
 									}`}
 								>
-									<p className="font-bold">{val.username}</p>
-									<p>{val.message}</p>
+									<p className="font-medium text-sm">{val.message}</p>
 								</div>
-								<p className="text-xs text-gray-500">{val.date}</p>
+								<p className="text-xs text-gray-500 mt-1">Saat {val.date}</p>
 							</div>
 						)
 					})}
 				</div>
-
 				<div className="absolute bottom-0 left-0 w-full">
 					<input
 						value={message}
 						onChange={(e) => setMessage(e.target.value)}
 						type="text"
 						placeholder="Mesajınızı yazın"
-						className="w-3/4 h-12 p-3 outline-none hover:shadow-lg transition duration-200 ease-in-out"
+						className="w-3/4 h-12 p-3 outline-none"
+						onKeyPress={(e) => (e.key === 'Enter' ? sendMessage() : null)}
 					/>
 					<button
 						onClick={sendMessage}
-						className="w-1/4 h-12 bg-indigo-500 text-white font-bold focus:outline-none hover:bg-indigo-950 transition duration-200 ease-in-out"
+						className="w-1/4 h-12 bg-indigo-600 text-white font-bold focus:outline-none hover:bg-indigo-950 transition duration-200 ease-in-out"
 					>
 						Gönder
 					</button>

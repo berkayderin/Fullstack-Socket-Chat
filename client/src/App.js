@@ -13,7 +13,7 @@ function App() {
 	const [chatScreen, setChatScreen] = useState(false)
 
 	return (
-		<div className="App">
+		<div className="bg-gray-100 h-screen">
 			{!chatScreen ? (
 				<Room
 					username={username}
